@@ -27,3 +27,4 @@ $person = new Person('foo', 'bar', 0, array('hello','this','is','an','array'));
 
 $person->dump();
 $person->seperate();
+

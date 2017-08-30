@@ -16,26 +16,32 @@ if ($conn->connect_error) {
 
     <?php
 
-        $query = "SELECT * FROM people";
-        mysqli_query($conn, $query) or die('Error querying database.');
+        // $query = "SELECT * FROM people";
+        // mysqli_query($conn, $query) or die('Error querying database.');
 
-        $result = mysqli_query($conn, $query);
-        $row = mysqli_fetch_array($result);
+        // $result = mysqli_query($conn, $query);
+        // $row = mysqli_fetch_array($result);
 
-        while ($row = mysqli_fetch_array($result)) {
-            echo $row['name'] . ' ' . $row['position'] . ': ' . $row['rating'] . ' ' . '<br />';
-        }
+        // while ($row = mysqli_fetch_array($result)) {
+        //     echo $row['name'] . ' ' . $row['position'] . ': ' . $row['rating'] . ' ' . '<br />';
+        // }
         
-        include 'class.php';
+        // include 'class.php';
 
-        $person = new Person('Mike', 'Admin', 12);
-        $person->dump();
+        // $person = new Person('Mike', 'Admin', 12);
+        // $person->dump();
 
-        $sql = "INSERT INTO people (name, position, rating)
-        VALUES ('$person->name', '$person->position', $person->rating)";
+        $sql = "CREATE TABLE employees (
+            id integer(11) auto_increment not null,
+            name varchar(20), 
+            position varchar(20), 
+            rating tinyint,
+            primary key(id)
+        )";
+        // -- VALUES ('$person->name', '$person->position', $person->rating)";
         
         if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
+            echo "New table created successfully";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
