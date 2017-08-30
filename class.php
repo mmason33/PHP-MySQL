@@ -2,13 +2,6 @@
 
 class Person 
 {
-
-    public $name;
-
-    public $position;
-
-    public $rating;
-
     public function __construct($name, $position, $rating) {
         $this->name = $name;
         $this->position = $position;
@@ -22,3 +15,6 @@ class Person
     }
 }
 
+$person = new Person('foo', 'bar', 0);
+
+$person->dump();
