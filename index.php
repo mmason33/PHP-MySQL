@@ -56,52 +56,20 @@ if ($conn->connect_error) {
                     <tbody>
 
   <?php
-
-                    while ($row = mysqli_fetch_array($result)) {
-                        echo '<tr>';
-                            echo '<th scope="row" class="number">' . $i . '</th>';
-                            echo '<td>' . $row['name'] . '</td>';
-                            echo '<td>' . $row['position'] . '</td>';
-                            echo '<td>' . $row['rating'] . '</td>';
-                        echo '</tr>';
-                        $i++;
-                    }
-
+                while ($row = mysqli_fetch_array($result)) {
+                    echo '<tr>';
+                        echo '<th scope="row" class="number">' . $i . '</th>';
+                        echo '<td>' . $row['name'] . '</td>';
+                        echo '<td>' . $row['position'] . '</td>';
+                        echo '<td>' . $row['rating'] . '</td>';
+                    echo '</tr>';
+                    $i++;
+                }
 
 ?>
                 </tbody>
             </table>
         </div>
-        <script>
-            function submitForm() {
-                // Initiate Variables With Form Content
-                var name = $("#name").val().trim();
-                var position = $("#position").val().trim();
-                var rating = $("#rating").val().trim();
-                var rowNumb = parseInt($('.number').last().text()) + 1;
-
-                $('.table').append(
-                    '<tr>' +
-                        '<th scope="row">' + rowNumb + '</th>' +
-                        '<td>' + name + '</td>' +
-                        '<td>' + position + '</td>' +
-                        '<td>' + rating + '</td>' +
-                    '</tr>'
-                );
-            
-                $.ajax({
-                    type: "POST",
-                    url: "post.php",
-                    data: "name=" + name + "&position=" + position + "&rating=" + rating
-                });
-
-            }
-
-            $("form").submit(function(event){
-                event.preventDefault();
-                submitForm();
-            });
-        
-        </script>
+        <script src="js/script.js" type="text/javascript"></script>
     </body>
 </html>

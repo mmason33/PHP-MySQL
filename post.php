@@ -4,8 +4,6 @@
     $formPosition = $_POST['position'];
     $formRating = $_POST['rating'];
 
-    var_dump($formName);
-
     include 'index.php';
 
     $sql = "INSERT INTO people (name, position, rating)
