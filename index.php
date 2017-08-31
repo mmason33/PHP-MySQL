@@ -1,54 +1,97 @@
 <?php
 
 $conn = new mysqli('localhost', 'root', 'root', 'hello_world');
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+}
 
 ?>
 
 <html>
     <head>
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     <body>
-    <h1>PHP connect to MySQL</h1>
+        <div class="container">
+            <h1 class="text-center">PHP connect to MySQL</h1>
+            <div class="row justify-content-center">
+                <form class="col-6" action="post.php" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Postion</label>
+                        <input type="text" class="form-control" id="position" name="position" placeholder="Position">
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Rating</label>
+                        <input type="number" class="form-control" id="rating" name="rating" placeholder="Rating">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
 
-    <?php
+            <?php
 
-        // $query = "SELECT * FROM people";
-        // mysqli_query($conn, $query) or die('Error querying database.');
+                $query = "SELECT * FROM people";
+                mysqli_query($conn, $query) or die('Error querying database');
 
-        // $result = mysqli_query($conn, $query);
-        // $row = mysqli_fetch_array($result);
+                $result = mysqli_query($conn, $query);
+                $row = mysqli_fetch_array($result);
+                $i = 1;
+            ?>
 
-        // while ($row = mysqli_fetch_array($result)) {
-        //     echo $row['name'] . ' ' . $row['position'] . ': ' . $row['rating'] . ' ' . '<br />';
-        // }
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th class="number">#</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>rating</th>
+                    </tr>
+                </thead>
+                    <tbody>
+
+  <?php
+
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo '<tr>';
+                            echo '<th scope="row" class="number">' . $i . '</th>';
+                            echo '<td>' . $row['name'] . '</td>';
+                            echo '<td>' . $row['position'] . '</td>';
+                            echo '<td>' . $row['rating'] . '</td>';
+                        echo '</tr>';
+                        $i++;
+                    }
+
+
+?>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            $('.btn-primary').click( function (e) {
+                // e.preventDefault();
+                var rowNumb = parseInt($('.number').last().text()) + 1;
+                console.log(rowNumb)
+                // $("form").submit(function(){
+                //     $.post($(this).attr("action"), $(this).serialize());
+                //     return false;
+                //   });
+                $('.table').append(
+                    '<tr>' +
+                        '<th scope="row">' + rowNumb + '</th>' +
+                        '<td>' + $('#name').val().trim() + '</td>' +
+                        '<td>' + $('#position').val().trim() + '</td>' +
+                        '<td>' + $('#rating').val().trim() + '</td>' +
+                    '</tr>'
+                );
+
+            });
         
-        // include 'class.php';
-
-        // $person = new Person('Mike', 'Admin', 12);
-        // $person->dump();
-
-        $sql = "CREATE TABLE employees (
-            id integer(11) auto_increment not null,
-            name varchar(20), 
-            position varchar(20), 
-            rating tinyint,
-            primary key(id)
-        )";
-        // -- VALUES ('$person->name', '$person->position', $person->rating)";
-        
-        if ($conn->query($sql) === TRUE) {
-            echo "New table created successfully";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-        
-        $conn->close();
-    ?>
-
-
+        </script>
     </body>
 </html>
