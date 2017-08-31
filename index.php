@@ -33,17 +33,6 @@ if ($conn->connect_error) {
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
-
-            <?php
-
-                $query = "SELECT * FROM people";
-                mysqli_query($conn, $query) or die('Error querying database');
-
-                $result = mysqli_query($conn, $query);
-                $row = mysqli_fetch_array($result);
-                $i = 1;
-            ?>
-
             <table class="table">
                 <thead>
                     <tr>
@@ -56,6 +45,14 @@ if ($conn->connect_error) {
                     <tbody>
 
   <?php
+  
+                $query = "SELECT * FROM people";
+                mysqli_query($conn, $query) or die('Error querying database');
+
+                $result = mysqli_query($conn, $query);
+                $row = mysqli_fetch_array($result);
+                $i = 1;
+
                 while ($row = mysqli_fetch_array($result)) {
                     echo '<tr>';
                         echo '<th scope="row" class="number">' . $i . '</th>';
