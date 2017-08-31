@@ -73,23 +73,33 @@ if ($conn->connect_error) {
             </table>
         </div>
         <script>
-            $('.btn-primary').click( function (e) {
-                // e.preventDefault();
+            function submitForm() {
+                // Initiate Variables With Form Content
+                var name = $("#name").val().trim();
+                var position = $("#position").val().trim();
+                var rating = $("#rating").val().trim();
                 var rowNumb = parseInt($('.number').last().text()) + 1;
-                console.log(rowNumb)
-                // $("form").submit(function(){
-                //     $.post($(this).attr("action"), $(this).serialize());
-                //     return false;
-                //   });
+
                 $('.table').append(
                     '<tr>' +
                         '<th scope="row">' + rowNumb + '</th>' +
-                        '<td>' + $('#name').val().trim() + '</td>' +
-                        '<td>' + $('#position').val().trim() + '</td>' +
-                        '<td>' + $('#rating').val().trim() + '</td>' +
+                        '<td>' + name + '</td>' +
+                        '<td>' + position + '</td>' +
+                        '<td>' + rating + '</td>' +
                     '</tr>'
                 );
+            
+                $.ajax({
+                    type: "POST",
+                    url: "post.php",
+                    data: "name=" + name + "&position=" + position + "&rating=" + rating
+                });
 
+            }
+
+            $("form").submit(function(event){
+                event.preventDefault();
+                submitForm();
             });
         
         </script>

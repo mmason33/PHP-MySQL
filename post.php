@@ -1,7 +1,5 @@
 <?php 
 
-if ($formName !== NULL):
-
     $formName = $_POST['name'];
     $formPosition = $_POST['position'];
     $formRating = $_POST['rating'];
@@ -19,12 +17,5 @@ if ($formName !== NULL):
 
     $conn->close();
 
-    $formName = NULL;
-    $formPosition = NULL;
-    $formRating = NULL;
-
-else: 
-    exit;
-endif;
 
 
